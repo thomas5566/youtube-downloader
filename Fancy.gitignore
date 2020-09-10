@@ -1,0 +1,6 @@
+*.exe
+*.pyc
+launch.json
+/11880755/*
+/ffmpeg/*
+/build/*
