@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import tkinter as tk
 import os, subprocess, threading, time, string, re
 import lxml, json
@@ -52,8 +54,8 @@ def merge_media():
     temp_output = os.path.join(fileobj['dir'], 'output.mp4')
 
     # ffmpeg merge command
-    cmd = f'"ffmpeg.exe" -i "{temp_video}" -i "{temp_audio}" \
-        -map 0:v -map 1:a -c copy -y "{temp_output}"'
+    # cmd = f'"ffmpeg.exe" -i "{temp_video}" -i "{temp_audio}" -map 0:v -map 1:a -c copy -y "{temp_output}"'
+    cmd = f'"ffmpeg.exe" -i "{temp_video}" -i "{temp_audio}" -c:v copy -c:a aac -map 0:v:0 -map 1:a:0 "{temp_output}"'
 
     try:
         subprocess.call(cmd, shell=True)
@@ -134,6 +136,7 @@ def video_download(url, listbox, name, video_path, itag):
     no = listbox.size() # 以目前列表框筆數為下載編號
     listbox.insert(tk.END, f'{no:02d}:{name}.....Downloading')
     # print('Insert:', no, name)
+
     # lock.release當function執行完畢時，讀取到release時，
     # 他會去讓下一個申請執行的function去執行。
     lock.release() # 釋放鎖定
@@ -196,6 +199,8 @@ def btn_click(): # 按鈕的函式
             video_title = youtube.xpath("//meta[@name='title']/@content")
             ytname.append(''.join(video_title))
         # print (ytname)
+
+        # ytname = [x.unicode(x) for x in ytname]
 
         # for i in range(len(urls)):
         #     yt_title = YouTube(urls[i]).title
