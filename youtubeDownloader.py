@@ -133,7 +133,7 @@ def video_download(url, listbox, name, video_path, itag):
     lock.acquire() # 進行鎖定
     no = listbox.size() # 以目前列表框筆數為下載編號
     listbox.insert(tk.END, f'{no:02d}:{name}.....Downloading')
-    print('Insert:', no, name)
+    # print('Insert:', no, name)
     # lock.release當function執行完畢時，讀取到release時，
     # 他會去讓下一個申請執行的function去執行。
     lock.release() # 釋放鎖定
@@ -193,12 +193,9 @@ def btn_click(): # 按鈕的函式
 
         for url in urls:
             youtube = etree.HTML(urllib.request.urlopen(url).read().decode('utf-8'))
-            # enter your youtube url here
-            # youtube = json.load(urllib.request.urlopen(i))
-            # get xpath using firepath firefox addon
             video_title = youtube.xpath("//meta[@name='title']/@content")
             ytname.append(''.join(video_title))
-            print (ytname)
+        # print (ytname)
 
         # for i in range(len(urls)):
         #     yt_title = YouTube(urls[i]).title
